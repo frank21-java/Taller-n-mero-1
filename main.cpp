@@ -1,4 +1,5 @@
 #include "Alumno.h"
+#include "Curso.h"
 
 #include <iostream>
 #include <limits> // Para limpiar el buffer
@@ -104,6 +105,8 @@ int main()
         default: cout << "Opción inválida" << endl;
         }
     } while (opcion != 5);
+
+    return 0;
 }
 
 //------------------------------menus----------------------
