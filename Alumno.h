@@ -3,10 +3,11 @@ using namespace std;
 class Alumno
 {
 private:
-    string id,nombre,apellido,carrera,ingreso;
+    string id,nombre,apellido,carrera;
+    int ingreso;
     //agregar listas para cursos,notas
 public:
-    Alumno(string id,string nombre,string apellido,string carrera,string ingreso);
+    Alumno(string id,string nombre,string apellido,string carrera,int ingreso);
     ~Alumno();
     
     string getId();
@@ -17,8 +18,8 @@ public:
     void setApellido(string apellido);
     string getCarrera();
     void setCarrera(string carrera);
-    string getIngreso();
-    void setIngreso(string ingreso);
+    int getIngreso();
+    void setIngreso(int ingreso);
 
     virtual void toString();
 };
