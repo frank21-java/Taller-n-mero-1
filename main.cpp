@@ -1,9 +1,14 @@
 #include "Alumno.h"
 #include "Curso.h"
-
+#include "ListAlumnos.h"
+#include "ListClases.h"
 #include <iostream>
-#include <limits> // Para limpiar el buffer
+#include <limits>
 using namespace std;
+
+ListAlumnos ListaDeAlumnos;
+ListClases ListaDeCursos;
+
 void MenuAlumnos();
 void MenuCursos();
 void Inscripciones();
@@ -111,7 +116,7 @@ int main()
 
 //------------------------------menus----------------------
 void mostrarMenu() {
-    system("clear");
+    system("cls");
 
     cout << "=== MENÚ DEL PROGRAMA ===" << endl;
     cout << "1. Manejo de Alumnos" << endl;
@@ -122,7 +127,7 @@ void mostrarMenu() {
     cout << "Selecciona: ";
 }
 void MenuAlumnos(){
-    system("clear");
+    system("cls");
 
     cout << "=== MENÚ DE ALUMNOS ===" << endl;
     cout << "1. Agregar Alumnos" << endl;
@@ -132,7 +137,7 @@ void MenuAlumnos(){
     cout << "Selecciona: ";
 }
 void MenuCursos(){
-    system("clear");
+    system("cls");
 
     cout << "=== MENÚ DE CURSOS ===" << endl;
     cout << "1. Agregar Cursos" << endl;
@@ -142,7 +147,7 @@ void MenuCursos(){
     cout << "Selecciona: ";
 }
 void Inscripciones(){
-    system("clear");
+    system("cls");
 
     cout << "=== MENÚ DE INSCRIPCIONES ===" << endl;
     cout << "1. Inscribir un alumno en un curso" << endl;
@@ -199,12 +204,14 @@ void CrearAlumnos(){
         }
     }
     if(salir==false){
-        Alumno alumno(id,nombre,apellido,carrera,ingreso);
-        //agregar alumno a la lista
+        Alumno* alumno = new Alumno(id,nombre,apellido,carrera,ingreso);
+        ListaDeAlumnos.insertarFinal(alumno);
+        cout<<"Se a agregado al alumno con exito =)"<< endl;
     }
     else{
         cout<<"Se cancelo la creacion del alumno"<<endl;
     }
+    system("pause");
 }
 void BuscarAlumnos(){}
 void EliminarAlumnos(){}
@@ -257,11 +264,14 @@ void CrearCursos(){
         }
     }
     if(salir==false){
-        Curso curso(id,nombre,cantidad,carrera,profesor);
+        Curso* curso = new Curso(id,nombre,cantidad,carrera,profesor);
+        ListaDeCursos.insertarFinal(curso);
+        cout <<"Se a creado el curso"<< endl;
     }
     else{
         cout<<"Se cancelo la agregacion del curso"<<endl;
     }
+    system("pause");
 }
 void BuscarCursos(){}
 void EliminarCursos(){}
