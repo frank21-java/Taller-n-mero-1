@@ -6,7 +6,7 @@ struct NodoAlum {
     Alumno* alumno;
     NodoAlum* siguiente;
     NodoAlum(Alumno* alum) : alumno(alum),siguiente(nullptr){}
-}
+};
 class ListAlumnos{
 private:
     NodoAlum* cabeza;
@@ -16,10 +16,10 @@ public:
     ListAlumnos();
     ~ListAlumnos();
     
-    void insertarFinal(int valor)
-    void eliminarID()
+    void insertarFinal(Alumno* alumno);
+    void eliminarID(string id);
     void mostrar();
-    bool buscarPorID(int valor);
+    bool buscarPorID(string id);
     Alumno* obtenerPorId(string id);
 };
 

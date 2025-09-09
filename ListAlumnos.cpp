@@ -23,7 +23,7 @@ void ListAlumnos::insertarFinal(Alumno* alumno){
         cola = nuevoAlumno;
     }
 }
-void ListAlumnos::eliminarID(){
+void ListAlumnos::eliminarID(string id){
     if(cabeza == nullptr){
         return;
     }
@@ -39,7 +39,7 @@ void ListAlumnos::eliminarID(){
     }
     NodoAlum* actual = cabeza;
     while (actual->siguiente != nullptr){
-        if (actual->siguiente->alumno->getId == id){
+        if (actual->siguiente->alumno->getId() == id){
             NodoAlum* temp = actual->siguiente;
             actual->siguiente = temp->siguiente;
             if (temp == cola){
@@ -53,19 +53,18 @@ void ListAlumnos::eliminarID(){
     }
 }
 
-void ListAlumnos::mostrar();{
+void ListAlumnos::mostrar(){
     NodoAlum* actual = cabeza;
     cout <<"-----LISTA DE ALUMNOS------" << endl;
     while (actual != nullptr){
-        cout <<"ID: " << actual->alumno->getId() >> endl;
-        cout <<", Nombre: : " << actual->alumno->getNombre() >> endl;
-        cout <<"" << actual->alumno->getApellido() >> endl;
-        cout <<", Carrera: " << actual->alumno->getCarrera() >> endl;
-        cout <<", Ingreso: " << actual->alumno->getId() >> endl;
+        cout <<"ID: " << actual->alumno->getId() << endl;
+        cout <<", Nombre: : " << actual->alumno->getNombre() <<" " << actual->alumno->getApellido() << endl;
+        cout <<", Carrera: " << actual->alumno->getCarrera() << endl;
+        cout <<", Ingreso: " << actual->alumno->getIngreso() << endl;
     }
     cout << "-------------------------------" << endl;
 }   
-bool ListAlumnos::buscarPorID(int valor);{
+bool ListAlumnos::buscarPorID(string id){
     NodoAlum* actual = cabeza;
     while (actual != nullptr){
         if (actual != nullptr){
@@ -77,7 +76,7 @@ bool ListAlumnos::buscarPorID(int valor);{
     }
     return false;
 }   
-Alumno* ListAlumnos::obtenerPorId(string id);{
+Alumno* ListAlumnos::obtenerPorId(string id){
     NodoAlum* actual = cabeza;
     while (actual != nullptr){
         if (actual != nullptr){
@@ -88,6 +87,4 @@ Alumno* ListAlumnos::obtenerPorId(string id);{
         }
     }
     return nullptr;
-}
-    
 }

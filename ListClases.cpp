@@ -57,12 +57,12 @@ void ListClases::mostrar(){
     NodoClase* actual = cabeza;
     cout << "-----LISTA DE CURSOS------"<<endl;
     while(actual != nullptr){
-        cout << "ID: "<<actual->siguiente->getId<<endl;
-        cout << ", Nomnbre: "<<actual->siguiente->getNombre<<endl;
-        cout << ", Cupos: "<<actual->siguiente->getCantMax<<endl;
-        cout << ", Carrera: "<<actual->siguiente->getCarrera<<endl;
-        cout << ", Profesor: "<<actual->siguiente->getProfesor<<endl;
-        actual = actual->siguiente
+        cout << "ID: "<< actual->curso->getId() <<endl;
+        cout << ", Nomnbre: "<<actual->curso->getNombre()<<endl;
+        cout << ", Cupos: "<<actual->curso->getCantMax()<<endl;
+        cout << ", Carrera: "<<actual->curso->getCarrera()<<endl;
+        cout << ", Profesor: "<<actual->curso->getProfesor()<<endl;
+        actual = actual->siguiente;
     }
     cout <<"----------------------"<<endl;
 }
@@ -80,7 +80,7 @@ bool ListClases::buscarPorId(string id){
 Curso* ListClases::obtenerPorId(string id){
     NodoClase* actual = cabeza;
     while( actual != nullptr){
-        if(actual->Curso->getId() == id){
+        if(actual->curso->getId() == id){
             return actual->curso;
         }
         actual = actual->siguiente;

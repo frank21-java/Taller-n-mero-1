@@ -1,13 +1,15 @@
 #pragma once
-using namespace std;
+#include <string> // Incluir la biblioteca string
+using namespace std; // Ahora es seguro usarlo
+
 class Alumno
 {
 private:
-    string id,nombre,apellido,carrera;
+    string id, nombre, apellido, carrera;
     int ingreso;
     //agregar listas para cursos,notas
 public:
-    Alumno(string id,string nombre,string apellido,string carrera,int ingreso);
+    Alumno(string id, string nombre, string apellido, string carrera, int ingreso);
     ~Alumno();
     
     string getId();
@@ -20,6 +22,6 @@ public:
     void setCarrera(string carrera);
     int getIngreso();
     void setIngreso(int ingreso);
-
+    
     virtual void toString();
 };
