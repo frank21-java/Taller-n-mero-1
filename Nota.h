@@ -7,8 +7,7 @@ private:
     Curso* curso;
     double dato;
 public:
-    Nota(Alumno* alumno, Curso* curso);
+    Nota(Alumno* alumno, Curso* curso,double dato);
     ~Nota();
-    double getNota();
-    void setNota(double nota);
+    void mostrarNota();
 };
