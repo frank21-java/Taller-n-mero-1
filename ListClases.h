@@ -1,3 +1,4 @@
+#pragma once
 #ifndef LISTCLASES_H
 #define LISTCLASES_H
 #include "Curso.h"

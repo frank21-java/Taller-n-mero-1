@@ -1,3 +1,4 @@
+#pragma once
 #ifndef LISTAALUMNOS_H
 #define LISTAALUMNOS_H
 #include "Alumno.h"
