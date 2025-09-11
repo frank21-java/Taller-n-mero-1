@@ -7,9 +7,11 @@
 #include <limits>
 using namespace std;
 
+int contadorAlumnos=0;
+
 ListAlumnos ListaDeAlumnos;
 ListClases ListaDeCursos;
-ListNotas listaDeNotas;
+ListNotas ListaDeNotas;
 
 
 void MenuAlumnos();
@@ -228,6 +230,7 @@ void CrearAlumnos(){
     if(salir==false){
         Alumno* alumno = new Alumno(id,nombre,apellido,carrera,ingreso);
         ListaDeAlumnos.insertarFinal(alumno);
+        contadorAlumnos++;
         cout<<"Se a agregado al alumno con exito =)"<< endl;
     }
     else{
@@ -407,4 +410,88 @@ void agregarNotas(){
     
 }
 //------------------------Consultas y Reportes-------------
-void ConsuAndReport(){}
+void ConsuAndReport(){
+    cout<<"1. Obtener alumnos de una carrera\n"
+    <<"2. Obtener los cursos de un alumno\n"
+    <<"3. Promedio de un alumno en un curso"
+    <<"4. Promedio general de un alumno"
+    <<"5. Salir"
+    <<endl;
+
+    int resp;
+    do{
+        cin>>resp;
+        switch(resp){
+            case 1:
+            obtenerCarrera();
+            break;
+            case 2:
+            obtenerCursos();
+            break;
+            case 3:
+            obtenerPromedio();
+            break;
+            case 4:
+            promedioGeneral();
+            break;
+            case 5:
+            cout<<"Saliendo"<<endl;
+            break;
+            default:
+            cout<<"opcion incorrecta"<<endl;
+        }
+    }while(resp!=5);
+}
+
+void obtenerCarrera(){
+    cout<<"Ingrese carrera a buscar"<<endl;
+    string carrera;
+    cin>>carrera;
+    int contadorCarrera =0;
+    for(int i=0;i<contadorAlumnos;i++){
+        Alumno* alumno = ListaDeAlumnos.obtenerPorCarrera(carrera);
+        if(alumno!=nullptr){
+            cout<<alumno<<endl;
+            contadorCarrera++;
+        }
+    }
+    if(contadorCarrera==0){
+        cout<<"La carrera no tiene alumnos"<<endl;
+    }
+}
+
+void obtenerCursos(){
+    cout<<"Id del curso a buscar"<<endl;
+    string curso;
+    cin>>curso;
+    int contadorCurso=0;
+    for(int i=0;i<contadorAlumnos;i++){
+        Alumno* alumno;
+        //alumno = ListaDeAlumnos.obtenerPorCurso(curso);
+        if(alumno!=nullptr){
+            cout<<alumno<<endl;
+            contadorCurso++;
+        }
+    }
+
+    if(contadorCurso==0){
+        cout<<"el curso no tiene alumnos"<<endl;
+    }
+}
+
+void obtenerPromedio(){
+    cout<<"Ingrese id del alumno"<<endl;
+    string idAlumno;
+    cin>>idAlumno;
+    cout<<"Ingrese id del curso"<<endl;
+    string idCurso;
+    cin>>idCurso;
+    ListaDeNotas.calcularPromedioAlumnoCurso(idAlumno,idCurso);
+}
+
+void promedioGeneral(){
+    cout<<"INgresar id del alumno"<<endl;
+    string id;
+    cin>>id;
+    ListaDeNotas.calcularPromedioAlumno(id);
+}

@@ -88,3 +88,29 @@ Alumno* ListAlumnos::obtenerPorId(string id){
     }
     return nullptr;
 }
+
+bool ListAlumnos::buscarPorCarrera(string carrera){
+    NodoAlum* actual = cabeza;
+    while (actual != nullptr){
+        if (actual != nullptr){
+            if (actual->alumno->getCarrera() == carrera){
+                return true;
+            }
+            actual = actual->siguiente;
+        }
+    }
+    return false;
+}   
+
+Alumno* ListAlumnos::obtenerPorCarrera(string carrera){
+    NodoAlum* actual = cabeza;
+    while (actual != nullptr){
+        if (actual != nullptr){
+            if (actual->alumno->getCarrera() == carrera){
+                return actual->alumno;
+            }
+            actual = actual->siguiente;
+        }
+    }
+    return nullptr;
+}
