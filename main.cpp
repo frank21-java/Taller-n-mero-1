@@ -2,12 +2,15 @@
 #include "Curso.h"
 #include "ListAlumnos.h"
 #include "ListClases.h"
+#include "ListNotas.h"
 #include <iostream>
 #include <limits>
 using namespace std;
 
 ListAlumnos ListaDeAlumnos;
 ListClases ListaDeCursos;
+ListNotas listaDeNotas;
+
 
 void MenuAlumnos();
 void MenuCursos();
@@ -104,6 +107,7 @@ int main()
                 }
             } while(3 != opInscrip);
             break;
+            
         case 4: 
             agregarNotas();
             break;
@@ -111,6 +115,7 @@ int main()
             ConsuAndReport();
             break;
         case 6: cout << "¡Hasta pronto!" << endl; break;
+        
         default: cout << "Opción inválida" << endl;
         }
     } while (opcion != 6);
@@ -249,6 +254,7 @@ void EliminarAlumnos(){
     cout <<"ingrese el ID del alumno quie quiere eliminar: "<< endl;
     cin >> buscar;
     if(ListaDeAlumnos.buscarPorID(buscar)){
+        ListaDeNotas.eliminarPorAlumno(buscar);
         ListaDeAlumnos.eliminarID(buscar);
         cout<<"el alumno a sido eliminado con exito"<<endl;
     } else{
@@ -346,6 +352,7 @@ void EliminarCursos(){
     cout << "Ingrese el Id curso que quiere eliminar: "<< endl;
     cin >> id;
     if(ListaDeCursos.buscarPorId(id)){
+        ListaDeNotas.eliminarPorCurso(id);
         ListaDeCursos.eliminarPorId(id);
         cout<< "el curso se elimino"<<endl;
     } else{
@@ -356,6 +363,48 @@ void EliminarCursos(){
 void InscribirAlumCurso(){}
 void EliminarAlumCurso(){}
 //--------------------------Notas------------------------
-void agregarNotas(){}
+void agregarNotas(){
+    system("cls");
+    cout << "-------------AGREGAR NOTAS-------------" << endl;
+    string idAlumno;
+    string idCurso;
+    double notaValor;
+    cout << "Ingrese ID del alumno: "<<endl;
+    cin >> idAlumno;
+    
+    Alumno* alumno = ListaDeAlumnos.obtenerPorId(idAlumno);
+    if (alumno == nullptr){
+        cout<< "El alumno no existe"<<endl;
+        system("pause");
+        return;
+    }
+    cout << "Ingrese ID del curos: "<<endl;
+    cin >> idCurso;
+    Curso* curso = ListaDeCursos.obtenerPorId(idAlumno);
+    if (curso == nullptr){
+        cout<< "El curso no existe"<<endl;
+        system("pause");
+        return;
+    }
+    if(alumno->getCarrera() != curso->getCarrera()){
+        cout << "Error: El alumno no pertenece a ese curso"<< endl;
+        system("pause");
+        return;
+    }
+    cout << "Ingrese la nota (1.0 - 7.0): "<<endl;
+    cin >> notaValor;
+    
+    if(notaValor < 1.0 || notaValor > 7.0){
+        cout << "nota invalida" << endl;
+        system("pause");
+        return;
+    }
+    Nota* nuevaNota = new Nota(alumno, curso, notaValor);
+    ListaDeNotas.insertarFinal(nuevaNota);
+    
+    cout << "Nota agregada exitosamente!" << endl;
+    system("pause");
+    
+}
 //------------------------Consultas y Reportes-------------
 void ConsuAndReport(){}

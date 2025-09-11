@@ -1,5 +1,6 @@
 #pragma once
 #include <string> // Incluir la biblioteca string
+
 using namespace std; // Ahora es seguro usarlo
 
 class Alumno
