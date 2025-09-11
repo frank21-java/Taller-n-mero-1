@@ -13,29 +13,46 @@ ListAlumnos ListaDeAlumnos;
 ListClases ListaDeCursos;
 ListNotas ListaDeNotas;
 
-
+/*muesta las opciones para el menu de alumnos*/
 void MenuAlumnos();
+/*muestra las opciones para el menu de cursos*/
 void MenuCursos();
+/*muestra las opciones para el menu de inscripciones*/
 void Inscripciones();
+/*muestra el menu principal*/
 void mostrarMenu();
 
+/*crea un alumno pidiendo todos sus datos*/
 void CrearAlumnos();
+/*busca un alumno segun su id*/
 void BuscarAlumnos();
+/*se elimina un alumno segun su id*/
 void EliminarAlumnos();
 
+/*crea un curso pidiendo todos sus datos*/
 void CrearCursos();
+/*busca un curso segun su id*/
 void BuscarCursos();
+/*elimina un curso segun su id*/
 void EliminarCursos();
 
+/*inscribe un alumno a una clase*/
 void InscribirAlumCurso();
+/*elimina un alumno de una clase*/
 void EliminarAlumCurso();
 
+/*asigna notas a un alumno*/
 void agregarNotas();
 
+/*menu de consultas y reportes*/
 void ConsuAndReport();
+/*muestra los alumnos de una carrera*/
 void obtenerCarrera();
+/*muestra los cursos a los que pertenece un alumno*/
 void obtenerCursos();
+/*muestra el promedio de un curso para un alumno*/
 void obtenerPromedio();
+/*muestra el promedio general de un alumno*/
 void promedioGeneral();
 
 int main()
