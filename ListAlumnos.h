@@ -22,6 +22,8 @@ public:
     void mostrar();
     bool buscarPorID(string id);
     Alumno* obtenerPorId(string id);
+    bool buscarPorCarrera(string carrera);
+    Alumno* obtenerPorCarrera(string carrera);
 };
 
 #endif
