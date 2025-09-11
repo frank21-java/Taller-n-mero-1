@@ -33,6 +33,10 @@ void EliminarAlumCurso();
 void agregarNotas();
 
 void ConsuAndReport();
+void obtenerCarrera();
+void obtenerCursos();
+void obtenerPromedio();
+void promedioGeneral();
 
 int main()
 {
@@ -363,8 +367,59 @@ void EliminarCursos(){
     }
 }
 //---------------------Inscripciones----------------------
-void InscribirAlumCurso(){}
-void EliminarAlumCurso(){}
+void InscribirAlumCurso(){
+    cout<<"ingrese id del alumno"<<endl;
+    string idAlumno;
+    cin>>idAlumno;
+    Alumno* alumno= ListaDeAlumnos.obtenerPorId(idAlumno);
+    if(alumno==nullptr){
+        cout<<"no se encontro al alumno"<<endl;
+    }
+    else{
+        cout<<"ingresar id del curso"<<endl;
+        string idCurso;
+        cin>>idCurso;
+        Curso* clase= ListaDeCursos.obtenerPorId(idCurso);
+        if(clase==nullptr){
+            cout<<"no se encontro la clase"<<endl;
+        }
+        else{
+            if(alumno->getCarrera() == clase->getCarrera()){
+            alumno->agregarCurso(idCurso);
+            cout<<"se agrego el curso al alumno"<<endl;
+            }
+            else{
+                cout<<"no son de la misma carrera"<<endl;
+            }
+        }
+    }
+}
+void EliminarAlumCurso(){
+    cout<<"ingrese id del alumno"<<endl;
+    string idAlumno;
+    cin>>idAlumno;
+    Alumno* alumno= ListaDeAlumnos.obtenerPorId(idAlumno);
+    if(alumno==nullptr){
+        cout<<"no se encontro al alumno"<<endl;
+    }
+    else{
+        cout<<"ingresar id del curso"<<endl;
+        string idCurso;
+        cin>>idCurso;
+        Curso* clase= ListaDeCursos.obtenerPorId(idCurso);
+        if(clase==nullptr){
+            cout<<"no se encontro la clase"<<endl;
+        }
+        else{
+            if(alumno->borrarCurso(idCurso)==true){
+            cout<<"se elimino el alumno del curso"<<endl;
+            }
+            else{
+                cout<<"ese alumno no estaba en la clase"<<endl;
+            }
+        }
+    }
+}
 //--------------------------Notas------------------------
 void agregarNotas(){
     system("cls");
@@ -461,21 +516,22 @@ void obtenerCarrera(){
 }
 
 void obtenerCursos(){
-    cout<<"Id del curso a buscar"<<endl;
+    cout<<"Id del alumno a buscar"<<endl;
     string curso;
     cin>>curso;
-    int contadorCurso=0;
+    bool existe=false;
+    Alumno* alumno;
     for(int i=0;i<contadorAlumnos;i++){
-        Alumno* alumno;
-        //alumno = ListaDeAlumnos.obtenerPorCurso(curso);
+        alumno=ListaDeAlumnos.obtenerPorId(curso);
         if(alumno!=nullptr){
-            cout<<alumno<<endl;
-            contadorCurso++;
+            existe=true;
+            cout<<"id de los cursos a los que pertenece"<<endl;
+            alumno->getCursos();
+            break;
         }
     }
-
-    if(contadorCurso==0){
-        cout<<"el curso no tiene alumnos"<<endl;
+    if(existe==false){
+        cout<<"no se encontro el alumno"<<endl;
     }
 }
 
