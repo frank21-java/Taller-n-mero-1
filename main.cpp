@@ -1,3 +1,6 @@
+//Benjamin torres 21.834.146-2
+//Francisco Castillo 21.717.293-4
+//ambos ingenwdia en tecnología de la información 
 #include "Alumno.h"
 #include "Curso.h"
 #include "ListAlumnos.h"
