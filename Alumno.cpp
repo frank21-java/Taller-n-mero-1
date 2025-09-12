@@ -42,16 +42,25 @@ bool Alumno::borrarCurso(string idCurso){
     return false;
 }
 
-void Alumno::getCursos(){
+void Alumno::getCursos(ListClases& ListaDeClases){
     stringstream completo(cursos);
     string temp;
     char borrar=',';
+    cout<< "Cursos Inscritos:"<<endl;
+    cout<< "---------------------"<<endl;
     while(getline(completo,temp,borrar)){
-        if(temp!=""){
-            cout<<temp<<endl;
+        Curso* curso = ListaDeClases.obtenerPorId(temp);
+        if(curso != nullptr){
+            cout <<"-"<< curso->getNombre()<<endl;
+        } else{
+            cout<<"-"<< temp<<" (curso no encontrado)"<< endl;
         }
     }
 }
 
 void Alumno::toString(){cout<<"Nombre del alumno: "<<nombre<<"\n"
     <<endl;}
+    
+string Alumno::getCursosIds(){
+    return cursos;
+}

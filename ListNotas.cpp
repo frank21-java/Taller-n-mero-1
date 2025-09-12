@@ -8,7 +8,7 @@ ListNotas::~ListNotas(){
     NodoNota* actual = cabeza;
     while (actual != nullptr){
         NodoNota* temp = actual;
-        actual = actual->siguente;
+        actual = actual->siguiente;
         delete temp->nota;
         delete temp;
     }
@@ -16,11 +16,11 @@ ListNotas::~ListNotas(){
     
 void ListNotas::insertarFinal(Nota* nota){
     NodoNota* nuavaNota = new NodoNota(nota);
-    if(cabeza != nullptr){
+    if(cabeza == nullptr){
         cabeza = nuavaNota;
         cola = nuavaNota;
     } else {
-        cola->siguente = nuavaNota;
+        cola->siguiente = nuavaNota;
         cola = nuavaNota;
     }
 }
@@ -33,21 +33,21 @@ void ListNotas::eliminarPorAlumno(string idAlumno){
         if(actual->nota->getAlumno()->getId() == idAlumno){
             NodoNota* temp = actual;
             if (actual == nullptr){
-                cabeza = actual->siguente;
+                cabeza = actual->siguiente;
             } else {
-                anterior->siguente = anterior->siguente;
+                anterior->siguiente = anterior->siguiente;
             }
             
             if( actual == cola){
                 cola = anterior;
             }
             
-            actual = actual->siguente;
+            actual = actual->siguiente;
             delete temp->nota;
             delete temp;
         } else {
             anterior = actual;
-            actual = anterior->siguente;
+            actual = anterior->siguiente;
         }
     }
 }
@@ -60,21 +60,21 @@ void ListNotas::eliminarPorCurso(string idCurso){
         if(actual->nota->getCurso()->getId() == idCurso){
             NodoNota* temp = actual;
             if (actual == nullptr){
-                cabeza = actual->siguente;
+                cabeza = actual->siguiente;
             } else {
-                anterior->siguente = anterior->siguente;
+                anterior->siguiente = anterior->siguiente;
             }
             
             if( actual == cola){
                 cola = anterior;
             }
             
-            actual = actual->siguente;
+            actual = actual->siguiente;
             delete temp->nota;
             delete temp;
         } else {
             anterior = actual;
-            actual = anterior->siguente;
+            actual = anterior->siguiente;
         }
     }
 }
@@ -85,7 +85,7 @@ bool ListNotas::existeNota(string idAlumno, string idCurso){
         if(actual->nota->getAlumno()->getId() == idAlumno && actual->nota->getCurso()->getId() == idCurso){
            return true;
         }
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
     return false;
 }
@@ -100,7 +100,7 @@ void ListNotas::mostrarNotasAlumno(string idAlumno){
            actual->nota->mostrarNota();
            tieneNota = true;
         }
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
     if(!tieneNota){
         cout << "El alumno no tiene notas registradas." << endl;
@@ -117,7 +117,7 @@ void ListNotas::mostrarNotasCurso(string idCurso){
            actual->nota->mostrarNota();
            tieneNota = true;
         }
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
     if(!tieneNota){
         cout << "El curso no tiene notas registradas." << endl;
@@ -134,7 +134,7 @@ double ListNotas::calcularPromedioAlumno(string idAlumno){
             suma += actual->nota->getDato();
             contador++;
         }
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
     return contador > 0 ? suma / contador : 0.0;
 }
@@ -149,10 +149,11 @@ double ListNotas::calcularPromedioAlumnoCurso(string idAlumno, string idCurso){
             suma += actual->nota->getDato();
             contador++;
         }
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
     return contador > 0 ? suma / contador : 0.0;
 }
+
 void ListNotas::mostrarTodas(){
     NodoNota* actual = cabeza;
     cout << "------TODAS LAS NOTAS-------" << endl;
@@ -162,6 +163,6 @@ void ListNotas::mostrarTodas(){
     }
     while(actual != nullptr){
         actual->nota->mostrarNota();
-        actual = actual->siguente;
+        actual = actual->siguiente;
     }
 }

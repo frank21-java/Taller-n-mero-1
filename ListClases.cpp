@@ -9,7 +9,7 @@ ListClases::~ListClases() {
     while(actual != nullptr){
         NodoClase* temp = actual;
         actual = actual->siguiente;
-        delete temp->siguiente;
+        delete temp->curso;
         delete temp;
     }
 }

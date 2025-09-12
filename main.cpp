@@ -7,11 +7,10 @@
 #include <limits>
 using namespace std;
 
-int contadorAlumnos=0;
-
 ListAlumnos ListaDeAlumnos;
 ListClases ListaDeCursos;
 ListNotas ListaDeNotas;
+
 
 /*muesta las opciones para el menu de alumnos*/
 void MenuAlumnos();
@@ -55,14 +54,15 @@ void obtenerPromedio();
 /*muestra el promedio general de un alumno*/
 void promedioGeneral();
 
+
 int main()
 {
     int opcion;
     int opAlumnos;
     int opCursos;
     int opInscrip;
-    do
-    {
+    int opReport;
+    do{
         mostrarMenu();
         cin >> opcion;
         switch (opcion)
@@ -130,19 +130,41 @@ int main()
                 }
             } while(3 != opInscrip);
             break;
-            
         case 4: 
             agregarNotas();
             break;
         case 5:
-            ConsuAndReport();
+            do{
+                ConsuAndReport();
+                cin >> opReport;
+                switch (opReport){
+                    case 1:
+                        obtenerCarrera();
+                        break;
+                    case 2:
+                        obtenerCursos();
+                        break;
+                    case 3:
+                        obtenerPromedio();
+                        break;
+                    case 4:
+                        promedioGeneral();
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        cout << "Opción inválida" << endl;
+                        break;
+                }
+            } while(5 != opReport);
             break;
-        case 6: cout << "¡Hasta pronto!" << endl; break;
-        
-        default: cout << "Opción inválida" << endl;
+        case 6: 
+            cout << "¡Hasta pronto!" << endl; 
+            break;
+        default: 
+            cout << "Opción inválida" << endl;
         }
-    } while (opcion != 6);
-
+    } while (6 != opcion);
     return 0;
 }
 
@@ -186,6 +208,15 @@ void Inscripciones(){
     cout << "1. Inscribir un alumno en un curso" << endl;
     cout << "2. Eliminar un alumno de un curso" << endl;
     cout << "3. Salir" << endl;
+    cout << "Selecciona: ";
+}
+void ConsuAndReport(){
+    system("cls");
+    cout<<"1. Obtener alumnos de una carrera"<<endl;
+    cout<<"2. Obtener los cursos de un alumno"<<endl;
+    cout<<"3. Promedio de un alumno en un curso"<<endl;
+    cout<<"4. Promedio general de un alumno"<<endl;
+    cout<<"5. Salir"<<endl;
     cout << "Selecciona: ";
 }
 //-----------------------Alumnos---------------------------
@@ -251,7 +282,6 @@ void CrearAlumnos(){
     if(salir==false){
         Alumno* alumno = new Alumno(id,nombre,apellido,carrera,ingreso);
         ListaDeAlumnos.insertarFinal(alumno);
-        contadorAlumnos++;
         cout<<"Se a agregado al alumno con exito =)"<< endl;
     }
     else{
@@ -455,7 +485,7 @@ void agregarNotas(){
     }
     cout << "Ingrese ID del curos: "<<endl;
     cin >> idCurso;
-    Curso* curso = ListaDeCursos.obtenerPorId(idAlumno);
+    Curso* curso = ListaDeCursos.obtenerPorId(idCurso);
     if (curso == nullptr){
         cout<< "El curso no existe"<<endl;
         system("pause");
@@ -482,73 +512,24 @@ void agregarNotas(){
     
 }
 //------------------------Consultas y Reportes-------------
-void ConsuAndReport(){
-    cout<<"1. Obtener alumnos de una carrera\n"
-    <<"2. Obtener los cursos de un alumno\n"
-    <<"3. Promedio de un alumno en un curso"
-    <<"4. Promedio general de un alumno"
-    <<"5. Salir"
-    <<endl;
-
-    int resp;
-    do{
-        cin>>resp;
-        switch(resp){
-            case 1:
-            obtenerCarrera();
-            break;
-            case 2:
-            obtenerCursos();
-            break;
-            case 3:
-            obtenerPromedio();
-            break;
-            case 4:
-            promedioGeneral();
-            break;
-            case 5:
-            cout<<"Saliendo"<<endl;
-            break;
-            default:
-            cout<<"opcion incorrecta"<<endl;
-        }
-    }while(resp!=5);
-}
-
 void obtenerCarrera(){
-    cout<<"Ingrese carrera a buscar"<<endl;
-    string carrera;
-    cin>>carrera;
-    int contadorCarrera =0;
-    for(int i=0;i<contadorAlumnos;i++){
-        Alumno* alumno = ListaDeAlumnos.obtenerPorCarrera(carrera);
-        if(alumno!=nullptr){
-            cout<<alumno<<endl;
-            contadorCarrera++;
-        }
-    }
-    if(contadorCarrera==0){
-        cout<<"La carrera no tiene alumnos"<<endl;
-    }
+   cout <<"Ingrese carrera que quiere revisar:";
+   string carrera;
+   cin >> carrera;
+   ListaDeAlumnos.mostrarPorCarrera(carrera);
 }
 
 void obtenerCursos(){
-    cout<<"Id del alumno a buscar"<<endl;
-    string curso;
-    cin>>curso;
-    bool existe=false;
-    Alumno* alumno;
-    for(int i=0;i<contadorAlumnos;i++){
-        alumno=ListaDeAlumnos.obtenerPorId(curso);
-        if(alumno!=nullptr){
-            existe=true;
-            cout<<"id de los cursos a los que pertenece"<<endl;
-            alumno->getCursos();
-            break;
-        }
-    }
-    if(existe==false){
-        cout<<"no se encontro el alumno"<<endl;
+    system("cls");
+    cout << "Ingrese el ID del alumno: ";
+    string idAlumno;
+    cin >> idAlumno;
+    Alumno* alumno = ListaDeAlumnos.obtenerPorId(idAlumno);
+    if(alumno != nullptr){
+        cout << "----- CURSOS INSCRITOS -----" << endl;
+        alumno->getCursos(ListaDeCursos);
+    } else{
+        cout << "No se encontro el alumno" << endl;
     }
 }
 
@@ -559,12 +540,14 @@ void obtenerPromedio(){
     cout<<"Ingrese id del curso"<<endl;
     string idCurso;
     cin>>idCurso;
-    ListaDeNotas.calcularPromedioAlumnoCurso(idAlumno,idCurso);
+    double promedio = ListaDeNotas.calcularPromedioAlumnoCurso(idAlumno,idCurso);
+    cout<< "Promedio: "<<promedio<<endl;
 }
 
 void promedioGeneral(){
-    cout<<"INgresar id del alumno"<<endl;
+    cout<<"Ingresar id del alumno"<<endl;
     string id;
     cin>>id;
-    ListaDeNotas.calcularPromedioAlumno(id);
+    double promedio = ListaDeNotas.calcularPromedioAlumno(id);
+    cout<< "Promedio General: "<<promedio<<endl;
 }

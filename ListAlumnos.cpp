@@ -13,6 +13,7 @@ ListAlumnos::~ListAlumnos(){
         delete temp;
     }
 }
+
 void ListAlumnos::insertarFinal(Alumno* alumno){
     NodoAlum* nuevoAlumno = new NodoAlum(alumno);
     if(cabeza == nullptr){
@@ -23,6 +24,7 @@ void ListAlumnos::insertarFinal(Alumno* alumno){
         cola = nuevoAlumno;
     }
 }
+
 void ListAlumnos::eliminarID(string id){
     if(cabeza == nullptr){
         return;
@@ -61,9 +63,11 @@ void ListAlumnos::mostrar(){
         cout <<", Nombre: : " << actual->alumno->getNombre() <<" " << actual->alumno->getApellido() << endl;
         cout <<", Carrera: " << actual->alumno->getCarrera() << endl;
         cout <<", Ingreso: " << actual->alumno->getIngreso() << endl;
+        actual = actual->siguiente;
     }
     cout << "-------------------------------" << endl;
 }   
+
 bool ListAlumnos::buscarPorID(string id){
     NodoAlum* actual = cabeza;
     while (actual != nullptr){
@@ -76,6 +80,7 @@ bool ListAlumnos::buscarPorID(string id){
     }
     return false;
 }   
+
 Alumno* ListAlumnos::obtenerPorId(string id){
     NodoAlum* actual = cabeza;
     while (actual != nullptr){
@@ -113,4 +118,24 @@ Alumno* ListAlumnos::obtenerPorCarrera(string carrera){
         }
     }
     return nullptr;
+}
+
+void ListAlumnos::mostrarPorCarrera(string carrera) {
+    NodoAlum* actual = cabeza;
+    bool encontrado = false;
+    cout << "----- ALUMNOS DE " << carrera << " -----" << endl;
+    while(actual != nullptr){
+        if(actual->alumno->getCarrera() == carrera){
+            encontrado = true; 
+            cout << "ID: " << actual->alumno->getId() << endl;
+            cout << "Nombre: " << actual->alumno->getNombre() << " " 
+                 << actual->alumno->getApellido() << endl;
+            cout << "Ingreso: " << actual->alumno->getIngreso() << endl;
+            cout << "----------------------------" << endl;
+        }
+        actual = actual->siguiente;
+    }
+    if(!encontrado){
+        cout << "No hay alumnos en la carrera: " << carrera << endl;
+    }
 }

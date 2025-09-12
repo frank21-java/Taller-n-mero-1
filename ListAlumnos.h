@@ -57,6 +57,11 @@ public:
      * carrera- buscar alumno de aqui
      */
     Alumno* obtenerPorCarrera(string carrera);
+    
+    /**
+     * muestra todos los alumnos que pertenece a una carrera
+     */
+    void mostrarPorCarrera(string carrera);//falta instanciar
 };
 
 #endif

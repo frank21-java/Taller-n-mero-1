@@ -1,6 +1,6 @@
 #pragma once
 #include <string> // Incluir la biblioteca string
-
+#include "ListClases.h"
 using namespace std; // Ahora es seguro usarlo
 
 class Alumno
@@ -69,11 +69,11 @@ public:
     void setIngreso(int ingreso);
 
     /**
-     * imprime el id de los cursos a los que pertenece
+     * imprime el Nombre de los cursos a los que pertenece
      */
-    void getCursos();
-
-    /**
+    void getCursos(ListClases& listaCursos);
+    
+     /**
      * agrega una nueva id de curso al string de los cursos, se separan por ","
      * idCurso- la id del curso a agregar
      */
